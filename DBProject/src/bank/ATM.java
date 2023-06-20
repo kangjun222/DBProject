@@ -1,14 +1,19 @@
 package bank;
 
 import java.awt.Button;
+
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import awt.login.MemberVo;
 
 //
 
@@ -249,7 +254,40 @@ public class ATM extends WindowAdapter implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+//		if (e.getSource() == bLogin) {
+//
+//			System.out.println("Click!");
+//			System.out.println(tfId.getText() + " : " + tfPwd.getText());
+//
+//			String strId = tfId.getText();
+//
+//			ArrayList<MemberVo> list = dao.list(strId);
+//
+//			System.out.println("list.size() : " + list.size());
+//			if (list.size() == 1) {
+//				MemberVo data = (MemberVo) list.get(0);
+//				String id = data.getId();
+//				String pwd = data.getPassword();
+//
+//				System.out.println("DB ==> " + id + " : " + pwd);
+//
+//				if (tfPwd.getText().equals(pwd)) {
+//
+//					tfMsg.setText("로그인이 되었습니다!");
+//
+//					fMain = new Frame("은행선택");
+//					fMain.setBounds(380, 400, 680, 500);
+//					fMain.addWindowListener(this);
+//					fMain.setLayout(null);// border 레이아웃
+//					fMain.setVisible(true);
+//					bt1 = new Button("junhyungBank");
+//					bt2 = new Button("woonkiBank");
+//					bt3 = new Button("sinwooBank");
+//					
+//					Label Bc=new Label("Bank Choice");
+//					
+//					
+//					Bc.setBounds(300,50,100,100);
 		
 	}
 

@@ -1,6 +1,7 @@
 package awt.login;
 
 import java.lang.reflect.Member;
+
 import java.sql.Connection;
 
 
@@ -21,6 +22,10 @@ public class MemberDAO {
 	private Connection con;
 	private Statement stmt;
 	private ResultSet rs;
+	private Connection con1;
+	private ResultSet as;
+	private Statement stmt2;
+	
 
 	public ArrayList<MemberVo> list(String id) {
 		ArrayList<MemberVo> list = new ArrayList<MemberVo>();
@@ -88,4 +93,22 @@ public class MemberDAO {
 	    public ResultSet getRs() {
 	    	return rs;
 	    }
-}
+	    public Connection getCon1() {
+	    	return con1;
+	    
+		}
+	    public ResultSet getAs() {
+	    	return as;
+	    }
+	    public Statement getStmt2() {
+	    	return stmt2;
+	    }
+
+
+
+
+		
+		
+	    
+	    }
+

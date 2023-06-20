@@ -1,9 +1,16 @@
 package awt.login;
+
+import java.sql.Connection;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class MemberVo {
 	private String id;
 	private String password;
-	private String id2;
-	private String Pwd;
+	
+	
+
 	
 	
 	
@@ -28,13 +35,4 @@ public class MemberVo {
 		return password;
 	}
 	
-	public String getId2() {
-		return id2;
-	}
-
-
-	public String getPwd() {
-		return Pwd;
-	}
 }
-	
