@@ -26,7 +26,5 @@ public class MemberVo {
 	public String getPassword() {
 		return password;
 	}
-	public String getAcc() {
-		return accountnumber;
-	}
+
 }

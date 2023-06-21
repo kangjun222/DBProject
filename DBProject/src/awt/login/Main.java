@@ -1,6 +1,7 @@
 package awt.login;
 
 import java.awt.Button;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 public class Main extends WindowAdapter implements ActionListener {
 	private Frame f, fMain, fMain2, bMain1, bMain2, bMain3, bMain4, bMain5, bMain6, bMain7, bMain8;
 	private TextField tfId, tfPwd, tfMsg, tfMsg1, tfid2, tfpwd2, tfpwd3, tfpwd4, tfname, tfname1, tfname2, name,
-			tfname3, phonenumber, password4;
-	private Button bLogin, bjoin, enter, bt1, bt2, bt3, enter1, enter2, enter3, enter4, enter5, enter6;
+			tfname3, phonenumber, password4, tfMsg2, tfMsg3;
+	private Button bLogin, bjoin, enter, bt1, bt2, bt3, enter1, enter2, enter3, enter4, enter5, enter6, enter7, enter8;
 	private MemberDAO dao;
 	private Connection con;
 	private Statement stmt, pstmt2;
@@ -100,13 +101,13 @@ public class Main extends WindowAdapter implements ActionListener {
 			bMain5.dispose();
 		} else if (e.getSource() == bMain7) {
 			bMain7.dispose();
-		}else if (e.getSource() == bMain8) {
+		} else if (e.getSource() == bMain8) {
 			bMain8.dispose();
 		}
 
 	}
 
-	@Override//로그인
+	@Override // 로그인
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bLogin) {
 
@@ -139,6 +140,7 @@ public class Main extends WindowAdapter implements ActionListener {
 					bt3 = new Button("sinwooBank");
 
 					Label Bc = new Label("Bank Choice");
+
 					Bc.setBounds(300, 50, 100, 100);
 					fMain.add(Bc);
 
@@ -198,13 +200,12 @@ public class Main extends WindowAdapter implements ActionListener {
 					String id = tfid2.getText();
 					String pw = tfpwd2.getText();
 
-					String query = "insert into Member(ID,PASSWORD)values(?,?)";                                    
-					
+					String query = "insert into Member(ID,PASSWORD)values(?,?)";
+
 					try {
 						dao.connDB();
 						Connection conn = dao.getCon();
 						PreparedStatement pstmt = conn.prepareStatement(query);
-						
 
 						pstmt.setString(1, id);
 						pstmt.setString(2, pw);
@@ -217,11 +218,6 @@ public class Main extends WindowAdapter implements ActionListener {
 
 				}
 			});
-			
-			
-			
-
-						
 
 		} else if (e.getSource() == bt1) {
 			bMain1 = new Frame("준형은행");
@@ -240,9 +236,9 @@ public class Main extends WindowAdapter implements ActionListener {
 			enter2.addActionListener(this);
 			bMain1.add(enter2);
 		} else if (e.getSource() == enter2) {
-			bMain7 = new Frame("으악");///////////////////////////////////// ACCOUNT
+			bMain7 = new Frame("계좌 확인");///////////////////////////////////// ACCOUNT
 										///////////////////////////////////// 확인///////////////////////////////////////////////////////////////////////
-			bMain7.setBounds(300, 400, 500, 300); //300,400,400,200
+			bMain7.setBounds(300, 400, 500, 300); // 300,400,400,200
 			bMain7.addWindowListener(this);
 			bMain7.setVisible(true);
 			bMain7.setLayout(null);
@@ -255,21 +251,22 @@ public class Main extends WindowAdapter implements ActionListener {
 			bMain7.add(lid4);
 
 			enter6 = new Button("Enter");
-			enter6.setBounds(400, 50, 80, 80); //200,130,40,40
+			enter6.setBounds(400, 50, 80, 80); // 200,130,40,40
 			enter6.addActionListener(this);
 			bMain7.add(enter6);
 
-			
-			
 			enter6.addActionListener(new ActionListener() {
-			@Override 
+				@Override
 				public void actionPerformed(ActionEvent e) {
-				
-				
-			
+
 					input = tfpwd4.getText();
-					
-					
+
+					tfMsg2 = new TextField();
+					tfMsg2.setBounds(100, 200, 270, 40);
+					tfMsg2.setEditable(false);
+					tfMsg2.setFocusable(false);
+					bMain7.add(tfMsg2);
+
 					try {
 						MemberDAO md = new MemberDAO();/////////////////////////////////////////// asdasdsad
 						md.connDB();
@@ -277,36 +274,68 @@ public class Main extends WindowAdapter implements ActionListener {
 						Connection conn = md.getCon();
 						PreparedStatement pstmt2 = conn.prepareStatement(query);
 						rs = pstmt2.executeQuery();
-						rs.next();//////////////////////////////////////////////////////////////////////////////선생님
-						
-						if(rs.getRow()==0) {
+						rs.next();////////////////////////////////////////////////////////////////////////////// 선생님
+
+						if (rs.getRow() == 0) {
 							System.out.println("값이 없음");
-							bMain8 = new Frame("값없음");
-							bMain8.setBounds(300, 400, 500, 350);
-							bMain8.setLayout(null);
-						    bMain8.setVisible(true);
-						
-						}else  {
+							tfMsg2.setText("계좌를 생성해주세요!!!!!");
+
+						} else {
 							System.out.print("값을 찾음");
-							bMain6 = new Frame("값없음");
+							bMain6 = new Frame("입금 출금 창");
 							bMain6.setBounds(300, 400, 500, 350);
 							bMain6.setVisible(true);
 							bMain6.setLayout(null);
-							
+							tfMsg2.setText("입금 출금 창으로 넘어갑니다");
+							Label lid3 = new Label("Deposit : ");
+							lid3.setBounds(100, 120, 60, 20);
+							bMain6.add(lid3);
+
+							Label lid5 = new Label("Withdraw : ");
+							lid5.setBounds(100, 190, 60, 20);
+							bMain6.add(lid5);
+
+							tfMsg3 = new TextField();
+							tfMsg3.setBounds(100, 250, 310, 40);
+							tfMsg3.setEditable(false);
+							tfMsg3.setFocusable(false);
+							bMain6.add(tfMsg3);
+
+							name = new TextField();
+							name.setBounds(170, 110, 190, 40);
+							name.setVisible(true);
+							bMain6.add(name);
+
+							tfname3 = new TextField();
+							tfname3.setBounds(170, 185, 190, 40);
+							tfname3.setVisible(true);
+							bMain6.add(tfname3);
+							bMain6.add(tfname3);
+
+							enter7 = new Button("deposit");///////////////////입금
+							enter7.setBounds(400, 105, 80, 40); // 옆 위 크기
+							bMain6.add(enter7);
+
+							enter8 = new Button("withdraw");/////////////////출금
+							enter8.setBounds(400, 180, 80, 40);
+							bMain6.add(enter8);
+
 						}
-					
+						
+						
+						
+						
+						
 
 					} catch (SQLException e2) {
 						System.out.println(e2);
 					}
 
-				
-				
-			}
+				}
 			});
 			
-
-
+			
+		
 		}
 		if (e.getSource() == enter1) {/////////////////// 계좌 개설 1단계 이름,전화번호,4자리 패스워드
 			bMain5 = new Frame("계좌 개설");
@@ -353,17 +382,6 @@ public class Main extends WindowAdapter implements ActionListener {
 			tfMsg1.setFocusable(false);
 			bMain5.add(tfMsg1);
 
-//		}
-//		if(e.getSource()==enter5) {
-//			bMain6=new Frame("계좌 개설");
-//			bMain6.setBounds(300,400,500,500);
-//			bMain6.setVisible(true);
-//			bMain6.addWindowListener(this);	
-//			bMain6.setLayout(null);
-//			tfMsg1.setText("계좌 개설 성공!");
-//			System.out.println(ACCOUNTNUMBER);
-//			
-
 			enter5.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {///////// 계좌 개설 디비
@@ -398,10 +416,7 @@ public class Main extends WindowAdapter implements ActionListener {
 				}
 
 			});
-			
 
-
-			
 		}
 
 		else if (e.getSource() == bt2) {
