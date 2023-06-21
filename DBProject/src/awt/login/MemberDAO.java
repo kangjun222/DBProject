@@ -1,17 +1,17 @@
 package awt.login;
 
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Member;
 
 import java.sql.Connection;
-
-
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 
 public class MemberDAO {
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -25,20 +25,19 @@ public class MemberDAO {
 	private Connection con1;
 	private ResultSet as;
 	private Statement stmt2;
-	
 
+	
+	
 	public ArrayList<MemberVo> list(String id) {
 		ArrayList<MemberVo> list = new ArrayList<MemberVo>();
 
 		try {
 			connDB();
-		
 
 			String query = "SELECT * FROM member";
 			if (id != null) {
 				query += " where id=TRIM('" + id + "')";
-			
-				
+
 			}
 			System.out.println("29 -- SQL :" + query);
 			rs = stmt.executeQuery(query);
@@ -56,9 +55,7 @@ public class MemberDAO {
 
 					MemberVo data = new MemberVo(sh, password);
 					list.add(data);
-		
-			
-			
+
 				}
 			}
 
@@ -68,9 +65,6 @@ public class MemberDAO {
 
 		return list;
 	}
-
-	
-
 
 	public void connDB() {
 		try {
@@ -84,31 +78,30 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	 public Connection getCon() {
-	    	return con;
-	    }
-	    public Statement getStmt() {
-	    	return stmt;
-	    }
-	    public ResultSet getRs() {
-	    	return rs;
-	    }
-	    public Connection getCon1() {
-	    	return con1;
-	    
-		}
-	    public ResultSet getAs() {
-	    	return as;
-	    }
-	    public Statement getStmt2() {
-	    	return stmt2;
-	    }
 
+	public Connection getCon() {
+		return con;
+	}
 
+	public Statement getStmt() {
+		return stmt;
+	}
 
+	public ResultSet getRs() {
+		return rs;
+	}
 
-		
-		
-	    
-	    }
+	public Connection getCon1() {
+		return con1;
 
+	}
+
+	public ResultSet getAs() {
+		return as;
+	}
+
+	public Statement getStmt2() {
+		return stmt2;
+	}
+
+}
