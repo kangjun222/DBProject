@@ -17,8 +17,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Main extends WindowAdapter implements ActionListener {
-	private Frame f, fMain, fMain2, bMain1, bMain2, bMain3, bMain4, bMain5, bMain6, bMain7, bMain8;
-	private TextField tfId, tfPwd, tfMsg, tfMsg1, tfid2, tfpwd2, tfpwd3, tfpwd4, tfname, tfname1, tfname2, name,
+	private Frame f, fMain, fMain2, bMain1, bMain2, bMain3, bMain4, bMain5, bMain6, bMain7, bMain8,bMain9;
+	private TextField tfId, tfPwd, tfMsg, tfMsg1, tfid2, tfpwd2, tfpwd4, tfname, tfname1, tfname2, name,
 			tfname3, phonenumber, password4, tfMsg2, tfMsg3;
 	private Button bLogin, bjoin, enter, bt1, bt2, bt3, enter1, enter2, enter3, enter4, enter5, enter6, enter7, enter8;
 	private MemberDAO dao;
@@ -27,7 +27,7 @@ public class Main extends WindowAdapter implements ActionListener {
 	private ResultSet rs;
 	private Connection con1;
 	private ResultSet as;
-	private String driver, input;
+	private String driver, input,input1;
 
 	public Main() {
 		dao = new MemberDAO();
@@ -310,33 +310,116 @@ public class Main extends WindowAdapter implements ActionListener {
 							tfname3.setBounds(170, 185, 190, 40);
 							tfname3.setVisible(true);
 							bMain6.add(tfname3);
-							bMain6.add(tfname3);
-
+							
 							enter7 = new Button("deposit");///////////////////입금
-							enter7.setBounds(400, 105, 80, 40); // 옆 위 크기
-							bMain6.add(enter7);
+						    enter7.setBounds(400, 105, 80, 40); // 옆 위 크기
+						    bMain6.add(enter7);
+						   
 
 							enter8 = new Button("withdraw");/////////////////출금
 							enter8.setBounds(400, 180, 80, 40);
 							bMain6.add(enter8);
+							
+							
+			
+								
+								
+							
 
 						}
-						
-						
-						
-						
-						
 
 					} catch (SQLException e2) {
 						System.out.println(e2);
 					}
+					enter7.addActionListener(new ActionListener() {
 
+						@Override
+						public void actionPerformed(ActionEvent e) {///////////////////////////////찾았다
+							input1 = name.getText();
+							try {
+								MemberDAO a = new MemberDAO();
+								a.connDB();
+								Connection conn = a.getCon();
+								
+					         	String query="SELECT NVL(DEPOSIT,0) AS DEPOSIT FROM ACCOUNT WHERE ACCOUNTNUMBER='"+ input + "'";
+					         	System.out.println(query);
+//					         	System.out.println(input);
+					         	
+//					         	System.out.println("돈을넘");
+					         	
+					         	PreparedStatement pstmt2 = conn.prepareStatement(query);
+					         	ResultSet rs = pstmt2.executeQuery();
+					         	rs.next();
+					         	String acc = rs.getString("DEPOSIT");
+					         	int dp = Integer.parseInt(acc);
+					         	int inp = Integer.parseInt(input1);
+					         	int result = dp + inp;					         	
+					         	System.out.println("잔액 : " + dp);
+					         	System.out.println("입금 금액 : " + inp);
+					         	String dpCoin = String.valueOf(result);
+					         	
+					         	
+					         	
+					         	
+					         	//ACCOUNT NUMBER123 에 돈이 있어야댐 , 
+					         	//ACCOUNT NUMBER123에 플러스 해서 값이 나와야댐 
+					         	
+					         	// console 창에 출력할 것
+					         	// deposit에 입력한 값
+					         	// 계좌번호 : 1234
+					         	
+					         	
+					         	
+					         	
+					          // query < 잔액 deposit 
+					          	// deposit + input1 = ??
+					          	// ?? -> 변수하나 더 선언해서 밑에 query1 에 추가하기 
+								String query1 = "update ACCOUNT set DEPOSIT='"+ dpCoin +"' where ACCOUNTNUMBER='" + input +"'";
+							
+          						
+								System.out.println(query1);
+								
+								System.out.println("돈 넘");
+  		                     	PreparedStatement pstmt3 = conn.prepareStatement(query1);
+  		                     	int r1 = pstmt3.executeUpdate();
+  		                     	System.out.println("변경된 row : " + r1);
+
+					         	System.out.println("잔여 금액 : " + result);
+							
+							
+						}catch(SQLException e2) {
+							System.out.print(e2);
+						}
+						
+//							"update ACCOUNT set DEPOSIT = '" + input1 + "' where ACCOUNTNUMBER = '" + tfpwd4.getText() + "'" ;
+							
+				
+					
+						}
+					
+				
+						
+					});
+					
+				
 				}
 			});
+		}
+	
+			
+		
+		
+	
+		
+	
+
 			
 			
 		
-		}
+
+	
+	
+					
 		if (e.getSource() == enter1) {/////////////////// 계좌 개설 1단계 이름,전화번호,4자리 패스워드
 			bMain5 = new Frame("계좌 개설");
 			bMain5.setBounds(300, 400, 500, 500);
