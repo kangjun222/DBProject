@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 public class MemberDAO {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521/xe";
@@ -68,6 +70,7 @@ public class MemberDAO {
 
 	public void connDB() {
 		try {
+			
 			Class.forName(driver);
 			System.out.println("jdbc driver loading success.");
 			con = DriverManager.getConnection(url, user, password);

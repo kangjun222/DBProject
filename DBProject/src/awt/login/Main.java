@@ -1,12 +1,15 @@
 package awt.login;
 
 import java.awt.Button;
+import java.awt.Choice;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -19,9 +22,9 @@ import java.util.ArrayList;
 public class Main extends WindowAdapter implements ActionListener {
 	private Frame f, fMain, fMain2, bMain1, bMain2, bMain3, bMain4, bMain5, bMain6, bMain7, bMain8, bMain9;
 	private TextField tfId, tfPwd, tfMsg, tfMsg1, tfid2, tfpwd2, tfpwd4, tfname, tfname1, tfname2, name, name2, tfname3,
-			phonenumber, password4, tfMsg2, tfMsg3;
+			phonenumber, password4, tfMsg2, tfMsg3, kang;
 	private Button bLogin, bjoin, enter, bt1, bt2, bt3, enter1, enter2, enter3, enter4, enter5, enter6, enter7, enter8,
-			enter9;
+			enter9, enter10, enter11, enter12, enter13, enter14, enter15, enter16, enter17;
 	private MemberDAO dao;
 	private Connection con;
 	private Statement stmt, pstmt2;
@@ -110,6 +113,7 @@ public class Main extends WindowAdapter implements ActionListener {
 
 	@Override // 로그인
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == bLogin) {
 
 			System.out.println("Click!");
@@ -136,13 +140,17 @@ public class Main extends WindowAdapter implements ActionListener {
 					fMain.addWindowListener(this);
 					fMain.setLayout(null);// border 레이아웃
 					fMain.setVisible(true);
-					bt1 = new Button("junhyungBank");
-					bt2 = new Button("woonkiBank");
-					bt3 = new Button("sinwooBank");
+					bt1 = new Button("준형 은행");
+					bt2 = new Button("금융 상품");
+					bt3 = new Button("외환 환울");
 
-					Label Bc = new Label("Bank Choice");
+					Label Bc = new Label("개인 은행 관리");
 
-					Bc.setBounds(300, 50, 100, 100);
+					Font f1 = new Font("맑은 고딕", Font.PLAIN, 23);
+
+					Bc.setFont(f1);
+
+					Bc.setBounds(250, 10, 200, 100);
 					fMain.add(Bc);
 
 					bt1.addActionListener(this);// 클릭했을때 액션을취하는거
@@ -204,6 +212,7 @@ public class Main extends WindowAdapter implements ActionListener {
 					String query = "insert into Member(ID,PASSWORD)values(?,?)";
 
 					try {
+
 						dao.connDB();
 						Connection conn = dao.getCon();
 						PreparedStatement pstmt = conn.prepareStatement(query);
@@ -227,12 +236,12 @@ public class Main extends WindowAdapter implements ActionListener {
 			bMain1.setVisible(true);
 			bMain1.setLayout(null);
 
-			enter1 = new Button("Account opening");// 계좌 개설
+			enter1 = new Button("계좌 개설");// 계좌 개설
 			enter1.setBounds(30, 150, 200, 80);
 			enter1.addActionListener(this);
 			bMain1.add(enter1);
 
-			enter2 = new Button("account verification");// 계좌 확인
+			enter2 = new Button("입금/출금/조회");// 계좌 확인
 			enter2.setBounds(280, 150, 200, 80);
 			enter2.addActionListener(this);
 			bMain1.add(enter2);
@@ -247,7 +256,7 @@ public class Main extends WindowAdapter implements ActionListener {
 			tfpwd4 = new TextField();
 			tfpwd4.setBounds(150, 80, 190, 40);
 			bMain7.add(tfpwd4);
-			Label lid4 = new Label("Account Number : ");
+			Label lid4 = new Label("계좌 번호 : ");
 			lid4.setBounds(50, 50, 100, 100);
 			bMain7.add(lid4);
 
@@ -288,12 +297,12 @@ public class Main extends WindowAdapter implements ActionListener {
 							bMain6.setVisible(true);
 							bMain6.setLayout(null);
 							tfMsg2.setText("입금 출금 창으로 넘어갑니다");
-							Label lid3 = new Label("Deposit : ");
+							Label lid3 = new Label("입금 : ");
 							lid3.setBounds(100, 80, 60, 20);
 							bMain6.add(lid3);
 
-							Label lid5 = new Label("Withdraw : ");
-							lid5.setBounds(90, 130, 60, 20);
+							Label lid5 = new Label("출금 : ");
+							lid5.setBounds(100, 130, 60, 20);
 							bMain6.add(lid5);
 
 							tfMsg3 = new TextField();
@@ -312,15 +321,15 @@ public class Main extends WindowAdapter implements ActionListener {
 							tfname3.setVisible(true);
 							bMain6.add(tfname3);
 
-							enter7 = new Button("deposit");/////////////////// 입금
+							enter7 = new Button("확인");/////////////////// 입금
 							enter7.setBounds(400, 65, 80, 40); // 옆 위 크기
 							bMain6.add(enter7);
 
-							enter8 = new Button("withdraw");///////////////// 출금
+							enter8 = new Button("확인");///////////////// 출금
 							enter8.setBounds(400, 120, 80, 40);
 							bMain6.add(enter8);
 
-							enter9 = new Button("Balance check");
+							enter9 = new Button("잔액 조회");
 							enter9.setBounds(160, 170, 200, 50);
 							bMain6.add(enter9);
 
@@ -474,16 +483,16 @@ public class Main extends WindowAdapter implements ActionListener {
 			bMain5.setVisible(true);
 			bMain5.setLayout(null);
 
-			Label name = new Label("NAME");
+			Label name = new Label("이름:");
 			name.setBounds(60, 100, 100, 50);
 
 			bMain5.add(name);
 
-			Label name1 = new Label("PHONE-NUMBER");
+			Label name1 = new Label("전화번호:");
 			name1.setBounds(60, 140, 100, 50);
 			bMain5.add(name1);
 
-			Label name2 = new Label("ACCOUNT-NUMBER");
+			Label name2 = new Label("계좌 번호:");
 			name2.setBounds(60, 180, 100, 50);
 			bMain5.add(name2);
 
@@ -500,7 +509,7 @@ public class Main extends WindowAdapter implements ActionListener {
 			tfname2.setBounds(160, 180, 190, 40);
 			bMain5.add(tfname2);
 
-			enter5 = new Button("Enter");
+			enter5 = new Button("확인");
 			enter5.setBounds(400, 130, 40, 40);
 			enter5.addActionListener(this);
 
@@ -550,21 +559,272 @@ public class Main extends WindowAdapter implements ActionListener {
 		}
 
 		else if (e.getSource() == bt2) {
-			bMain2 = new Frame("웅기은행");
-			bMain2.setBounds(300, 400, 500, 350);
+			bMain2 = new Frame("금융 상품");
+			bMain2.setBounds(300, 400, 400, 450);
 			bMain2.addWindowListener(this);
 			bMain2.setVisible(true);
-			bMain2.addWindowListener(this);
+			bMain2.setLayout(null);
+
+			Label cc = new Label("예금 BEST");
+			Font f2 = new Font("Serif", Font.PLAIN, 23);
+			cc.setFont(f2);
+			cc.setBounds(120, 50, 200, 50);
+			bMain2.add(cc);
+
+			enter3 = new Button("1");/////////////////// 입금
+			enter3.setBounds(50, 100, 80, 40); // 옆 위 크기
+			bMain2.add(enter3);
+
+			enter4 = new Button("2");
+			enter4.setBounds(150, 100, 80, 40);// 옆 위
+			bMain2.add(enter4);
+
+			enter10 = new Button("3");
+			enter10.setBounds(250, 100, 80, 40);
+			bMain2.add(enter10);
+
+			Label dd = new Label("대출 BEST");
+			Font f3 = new Font("Serif", Font.PLAIN, 23);
+			dd.setFont(f3);
+			dd.setBounds(120, 180, 200, 50);
+			bMain2.add(dd);
+
+			enter11 = new Button("1");/////////////////// 입금
+			enter11.setBounds(50, 250, 80, 40); // 옆 위 크기
+			bMain2.add(enter11);
+
+			enter12 = new Button("2");
+			enter12.setBounds(150, 250, 80, 40);// 옆 위
+			bMain2.add(enter12);
+
+			enter13 = new Button("3");
+			enter13.setBounds(250, 250, 80, 40);
+			bMain2.add(enter13);
+
+			password4 = new TextField();
+			password4.setBounds(50, 300, 280, 80);
+			password4.setEditable(false);
+			password4.setFocusable(false);
+			bMain2.add(password4);
+
+			enter3.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					password4.setText("마이핏 통장 ,최고연 1.5%");
+
+				}
+
+			});
+			enter4.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					password4.setText("주택청약종합저축,최고연 2.1%");
+
+				}
+			});
+			enter10.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					password4.setText("내맘대로 적음,최고연 3.75%");
+
+				}
+			});
+
+			enter11.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					password4.setText("직장인이든든 신용대출 최고 3억원");
+
+				}
+			});
+			enter12.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					password4.setText("주택전세자금대출 최고4억4천4백만원");
+
+				}
+			});
+			enter13.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					password4.setText("매직카대출(신차 구매) 최고 6천만원 ");
+
+				}
+			});
 
 		} else if (e.getSource() == bt3) {
-			bMain3 = new Frame("우철은행");
-			bMain3.setBounds(300, 400, 500, 350);
+			bMain3 = new Frame("외환 환율");
+			bMain3.setBounds(300, 400, 500, 280);
 			bMain3.addWindowListener(this);
 			bMain3.setVisible(true);
 			bMain3.addWindowListener(this);
+			bMain3.setLayout(null);
+
+			Choice day = new Choice();
+
+			day.add("미국");
+			day.add("일본");
+			day.add("영국");
+			day.add("스위스");
+			day.add("캐나다");
+			day.add("호주");
+			day.add("홍콩");
+			day.add("중국");
+			day.add("스웨덴");
+			day.add("덴마크");
+			day.add("러시아");
+			day.add("필리핀");
+			day.add("브라질");
+			day.add("콜롬비아");
+			day.add("아르헨티나");
+			day.add("피지");
+
+			day.setSize(400, 50);
+			day.setLocation(50, 70);
+
+			bMain3.add(day);
+			bMain3.setVisible(true);
+
+			enter14 = new Button("매매 기준율");
+			enter14.setBounds(40, 120, 100, 50);
+			bMain3.add(enter14);
+
+			enter15 = new Button("보내실때");
+			enter15.setBounds(150, 120, 100, 50);
+			bMain3.add(enter15);
+
+			enter16 = new Button("받으실때");
+			enter16.setBounds(260, 120, 100, 50);
+			bMain3.add(enter16);
+
+			enter17 = new Button("파실때");
+			enter17.setBounds(370, 120, 100, 50);
+			bMain3.add(enter17);
+
+			kang = new TextField();
+			kang.setBounds(50, 200, 400, 40);
+			kang.setEditable(false);
+			kang.setFocusable(false);
+			bMain3.add(kang);
+
+			day.addItemListener(new ItemListener() {
+
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					String g = day.getSelectedItem().toString();
+					System.out.print("성공");
+
+					MemberDAO c = new MemberDAO();
+					c.connDB();
+					Connection conn = c.getCon();
+
+					String query = "SELECT NAME FROM MEMBER3 WHERE= ' " + g + "'";
+
+					// TODO Auto-generated method stub
+
+				}
+
+			});
+
+			enter14.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					String g = day.getSelectedItem().toString();
+					try {
+						MemberDAO b = new MemberDAO();
+						b.connDB();
+						Connection conn = b.getCon();
+						String query = "SELECT A FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						System.out.println(query);
+						PreparedStatement pstmt2 = conn.prepareStatement(query);
+						ResultSet rs = pstmt2.executeQuery();
+						rs.next();
+						String bcc = rs.getString("A");
+					
+						kang.setText(g + "환율은 : " + bcc );
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+
+					
+					//int dp = Integer.parseInt(bcc);
+					//int inp = Integer.parseInt(input2);
+				}
+			});
+			
+			enter15.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					String g = day.getSelectedItem().toString();
+					try {
+						MemberDAO b = new MemberDAO();
+						b.connDB();
+						Connection conn = b.getCon();
+						String query = "SELECT B FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						System.out.println(query);
+						PreparedStatement pstmt2 = conn.prepareStatement(query);
+						ResultSet rs = pstmt2.executeQuery();
+						rs.next();
+						String bcc = rs.getString("B");
+					
+						kang.setText("보내실 때 : " + bcc );
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+
+			
+			
+				}
+			});
+			
+			enter16.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					String g = day.getSelectedItem().toString();
+					try {
+						MemberDAO b = new MemberDAO();
+						b.connDB();
+						Connection conn = b.getCon();
+						String query = "SELECT C FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						System.out.println(query);
+						PreparedStatement pstmt2 = conn.prepareStatement(query);
+						ResultSet rs = pstmt2.executeQuery();
+						rs.next();
+						String bcc = rs.getString("C");
+					
+						kang.setText( "받으실 때 : " + bcc );
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+			
+			
+			enter17.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					String g = day.getSelectedItem().toString();
+					try {
+						MemberDAO b = new MemberDAO();
+						b.connDB();
+						Connection conn = b.getCon();
+						String query = "SELECT D FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						System.out.println(query);
+						PreparedStatement pstmt2 = conn.prepareStatement(query);
+						ResultSet rs = pstmt2.executeQuery();
+						rs.next();
+						String bcc = rs.getString("D");
+					
+						kang.setText( "파실 때 : " + bcc );
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+
+			
 
 		}
 
 	}
 }
-
