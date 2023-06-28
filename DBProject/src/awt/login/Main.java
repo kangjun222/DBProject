@@ -69,6 +69,8 @@ public class Main extends WindowAdapter implements ActionListener {
 		tfMsg.setBounds(50, 200, 370, 40);
 		tfMsg.setEditable(false);
 		tfMsg.setFocusable(false);
+		
+		
 
 		f.add(lid);
 		f.add(tfId);
@@ -79,6 +81,8 @@ public class Main extends WindowAdapter implements ActionListener {
 		f.add(bjoin);
 
 		f.setVisible(true);
+		
+		
 	}
 
 	public static void main(String[] args) {
@@ -110,10 +114,13 @@ public class Main extends WindowAdapter implements ActionListener {
 		}
 
 	}
+	
+	
 
 	@Override // 로그인
 	public void actionPerformed(ActionEvent e) {
-
+		
+		  
 		if (e.getSource() == bLogin) {
 
 			System.out.println("Click!");
@@ -208,6 +215,8 @@ public class Main extends WindowAdapter implements ActionListener {
 				public void actionPerformed(ActionEvent e) {// 회원가입 엔터눌렀을
 					String id = tfid2.getText();
 					String pw = tfpwd2.getText();
+					
+					
 
 					String query = "insert into Member(ID,PASSWORD)values(?,?)";
 
@@ -222,6 +231,7 @@ public class Main extends WindowAdapter implements ActionListener {
 
 						int rs = pstmt.executeUpdate();
 						System.out.println("변경된 row " + rs);
+						
 					} catch (SQLException e1) {
 						System.out.println(e1);
 					}
@@ -809,7 +819,7 @@ public class Main extends WindowAdapter implements ActionListener {
 						b.connDB();
 						Connection conn = b.getCon();
 						String query = "SELECT D FROM MEMBER3 WHERE NAME="+"'"+g+"'";
-						System.out.println(query);
+						
 						PreparedStatement pstmt2 = conn.prepareStatement(query);
 						ResultSet rs = pstmt2.executeQuery();
 						rs.next();
