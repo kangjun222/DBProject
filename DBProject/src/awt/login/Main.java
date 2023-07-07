@@ -20,18 +20,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Main extends WindowAdapter implements ActionListener {
-	private Frame f, fMain, fMain2, bMain1, bMain2, bMain3, bMain4, bMain5, bMain6, bMain7, bMain8, bMain9;
+	private Frame f, fMain, fMain2, bMain1, bMain2, bMain3, bMain4, bMain5, bMain6, bMain7, bMain8;
 	private TextField tfId, tfPwd, tfMsg, tfMsg1, tfid2, tfpwd2, tfpwd4, tfname, tfname1, tfname2, name, name2, tfname3,
-			phonenumber, password4, tfMsg2, tfMsg3, kang;
+			phonenumber, password4, tfMsg2, tfMsg3, kang, kang1;
 	private Button bLogin, bjoin, enter, bt1, bt2, bt3, enter1, enter2, enter3, enter4, enter5, enter6, enter7, enter8,
-			enter9, enter10, enter11, enter12, enter13, enter14, enter15, enter16, enter17;
+			enter9, enter10, enter11, enter12, enter13, enter14, enter15, enter16, enter17, enter18, enter19;
 	private MemberDAO dao;
 	private Connection con;
 	private Statement stmt, pstmt2;
 	private ResultSet rs;
 	private Connection con1;
 	private ResultSet as;
-	private String driver, input, input1, input2, input3;
+	private String driver, input, input1, input2;
 
 	public Main() {
 		dao = new MemberDAO();
@@ -69,8 +69,6 @@ public class Main extends WindowAdapter implements ActionListener {
 		tfMsg.setBounds(50, 200, 370, 40);
 		tfMsg.setEditable(false);
 		tfMsg.setFocusable(false);
-		
-		
 
 		f.add(lid);
 		f.add(tfId);
@@ -81,8 +79,7 @@ public class Main extends WindowAdapter implements ActionListener {
 		f.add(bjoin);
 
 		f.setVisible(true);
-		
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -114,13 +111,10 @@ public class Main extends WindowAdapter implements ActionListener {
 		}
 
 	}
-	
-	
 
 	@Override // 로그인
 	public void actionPerformed(ActionEvent e) {
-		
-		  
+
 		if (e.getSource() == bLogin) {
 
 			System.out.println("Click!");
@@ -209,14 +203,16 @@ public class Main extends WindowAdapter implements ActionListener {
 			enter.addActionListener(this);
 
 			fMain2.add(enter);
+			kang = new TextField();
+			kang.setBounds(80, 250, 350, 80);
+			f.setFocusable(false);
+			fMain2.add(kang);
 
 			enter.addActionListener(new ActionListener() {/////////// 회원가입
 
 				public void actionPerformed(ActionEvent e) {// 회원가입 엔터눌렀을
 					String id = tfid2.getText();
 					String pw = tfpwd2.getText();
-					
-					
 
 					String query = "insert into Member(ID,PASSWORD)values(?,?)";
 
@@ -231,9 +227,11 @@ public class Main extends WindowAdapter implements ActionListener {
 
 						int rs = pstmt.executeUpdate();
 						System.out.println("변경된 row " + rs);
-						
+						kang.setText("회원가입이 되었습니다 축하드립니다!!");
+
 					} catch (SQLException e1) {
 						System.out.println(e1);
+						kang.setText("아이디,비밀번호를 입력해주세요!!");
 					}
 
 				}
@@ -255,6 +253,44 @@ public class Main extends WindowAdapter implements ActionListener {
 			enter2.setBounds(280, 150, 200, 80);
 			enter2.addActionListener(this);
 			bMain1.add(enter2);
+
+		} else if (e.getSource() == enter18) {
+			bMain8 = new Frame("계좌 찾기");
+
+			bMain8.setBounds(300, 400, 500, 500);
+			bMain8.addWindowListener(this);
+			bMain8.setVisible(true);
+			bMain8.setLayout(null);
+
+			name2 = new TextField();
+			name2.setBounds(160, 140, 190, 40);
+			bMain8.add(name2);
+
+			phonenumber = new TextField();
+			phonenumber.setBounds(160, 100, 190, 40);
+			bMain8.add(phonenumber);
+
+			enter19 = new Button("확인");
+			enter19.setBounds(400, 100, 80, 80);
+			enter19.addActionListener(this);
+
+			bMain8.add(enter19);
+
+			Label name4 = new Label("이름:");
+			name4.setBounds(60, 100, 100, 50);
+
+			bMain8.add(name4);
+
+			Label name5 = new Label("전화번호:");
+			name5.setBounds(60, 140, 100, 50);
+			bMain8.add(name5);
+
+			kang1 = new TextField();
+			kang1.setBounds(50, 300, 370, 80);
+			kang1.setEditable(false);
+			kang1.setFocusable(false);
+			bMain8.add(kang1);
+
 		} else if (e.getSource() == enter2) {
 			bMain7 = new Frame("계좌 확인");///////////////////////////////////// ACCOUNT
 										///////////////////////////////////// 확인///////////////////////////////////////////////////////////////////////
@@ -280,7 +316,6 @@ public class Main extends WindowAdapter implements ActionListener {
 				public void actionPerformed(ActionEvent e) {
 
 					input = tfpwd4.getText();
-
 					tfMsg2 = new TextField();
 					tfMsg2.setBounds(100, 200, 270, 40);
 					tfMsg2.setEditable(false);
@@ -474,7 +509,7 @@ public class Main extends WindowAdapter implements ActionListener {
 								rs.next();
 								String bcc = rs.getString("DEPOSIT");
 								int dp = Integer.parseInt(bcc);
-								tfMsg3.setText(input + "계좌 잔액은 : " + bcc);
+								tfMsg3.setText(input + "계좌 잔액은 : " + bcc + "원입니다");
 							} catch (SQLException e1) {
 								e1.printStackTrace();
 							}
@@ -559,7 +594,7 @@ public class Main extends WindowAdapter implements ActionListener {
 					}
 					if (e.getSource() == enter5) {
 
-						tfMsg1.setText("계좌번호:" + w);
+						tfMsg1.setText("계좌를 잘숙지해주세요! 계좌번호:" + w);
 
 					}
 				}
@@ -688,6 +723,15 @@ public class Main extends WindowAdapter implements ActionListener {
 			day.add("콜롬비아");
 			day.add("아르헨티나");
 			day.add("피지");
+			day.add("덴마크");
+			day.add("노르웨이");
+			day.add("태국");
+			day.add("이집트");
+			day.add("카자흐스탄");
+			day.add("우주베키스탄");
+			day.add("바레인");
+			day.add("헝가리");
+			day.add("유럽연합");
 
 			day.setSize(400, 50);
 			day.setLocation(50, 70);
@@ -744,24 +788,23 @@ public class Main extends WindowAdapter implements ActionListener {
 						MemberDAO b = new MemberDAO();
 						b.connDB();
 						Connection conn = b.getCon();
-						String query = "SELECT A FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						String query = "SELECT A FROM MEMBER3 WHERE NAME=" + "'" + g + "'";
 						System.out.println(query);
 						PreparedStatement pstmt2 = conn.prepareStatement(query);
 						ResultSet rs = pstmt2.executeQuery();
 						rs.next();
 						String bcc = rs.getString("A");
-					
-						kang.setText(g + "환율은 : " + bcc );
+
+						kang.setText(g + "환율은 : " + bcc);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 
-					
-					//int dp = Integer.parseInt(bcc);
-					//int inp = Integer.parseInt(input2);
+					// int dp = Integer.parseInt(bcc);
+					// int inp = Integer.parseInt(input2);
 				}
 			});
-			
+
 			enter15.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -770,23 +813,21 @@ public class Main extends WindowAdapter implements ActionListener {
 						MemberDAO b = new MemberDAO();
 						b.connDB();
 						Connection conn = b.getCon();
-						String query = "SELECT B FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						String query = "SELECT B FROM MEMBER3 WHERE NAME=" + "'" + g + "'";
 						System.out.println(query);
 						PreparedStatement pstmt2 = conn.prepareStatement(query);
 						ResultSet rs = pstmt2.executeQuery();
 						rs.next();
 						String bcc = rs.getString("B");
-					
-						kang.setText("보내실 때 : " + bcc );
+
+						kang.setText("보내실 때 : " + bcc);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 
-			
-			
 				}
 			});
-			
+
 			enter16.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -795,21 +836,20 @@ public class Main extends WindowAdapter implements ActionListener {
 						MemberDAO b = new MemberDAO();
 						b.connDB();
 						Connection conn = b.getCon();
-						String query = "SELECT C FROM MEMBER3 WHERE NAME="+"'"+g+"'";
+						String query = "SELECT C FROM MEMBER3 WHERE NAME=" + "'" + g + "'";
 						System.out.println(query);
 						PreparedStatement pstmt2 = conn.prepareStatement(query);
 						ResultSet rs = pstmt2.executeQuery();
 						rs.next();
 						String bcc = rs.getString("C");
-					
-						kang.setText( "받으실 때 : " + bcc );
+
+						kang.setText("받으실 때 : " + bcc);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 				}
 			});
-			
-			
+
 			enter17.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -818,21 +858,19 @@ public class Main extends WindowAdapter implements ActionListener {
 						MemberDAO b = new MemberDAO();
 						b.connDB();
 						Connection conn = b.getCon();
-						String query = "SELECT D FROM MEMBER3 WHERE NAME="+"'"+g+"'";
-						
+						String query = "SELECT D FROM MEMBER3 WHERE NAME=" + "'" + g + "'";
+
 						PreparedStatement pstmt2 = conn.prepareStatement(query);
 						ResultSet rs = pstmt2.executeQuery();
 						rs.next();
 						String bcc = rs.getString("D");
-					
-						kang.setText( "파실 때 : " + bcc );
+
+						kang.setText("파실 때 : " + bcc);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 				}
 			});
-
-			
 
 		}
 
