@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/awt/login/asd/ppt</name>
-			<type>2</type>
-			<location>C:/Users/Class01/Desktop/ppt</location>
-		</link>
-	</linkedResources>
 </projectDescription>
